@@ -1,0 +1,627 @@
+/* ═══════════════════════════════════════════════════════════
+   SHOPKEEPER LEDGER — GLOBAL DESIGN SYSTEM
+   Premium UI inspired by Groww · PhonePe · CRED
+   ═══════════════════════════════════════════════════════════ */
+
+@import "tailwindcss";
+
+/* ─── DESIGN TOKENS ─────────────────────────────────────── */
+:root {
+  --primary: 245 158 11;       /* Amber 500 */
+  --primary-dark: 217 119 6;
+  --accent: 99 102 241;         /* Indigo 500 */
+  --success: 16 185 129;
+  --danger: 239 68 68;
+  --app-bg: #0b0e1a;
+  --card-bg: rgba(255,255,255,0.06);
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  
+  /* Bento Glass Dark system */
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.1);
+  --glass-hover: rgba(255,255,255,0.09);
+  --surface: rgba(255,255,255,0.04);
+  --surface-2: rgba(255,255,255,0.08);
+  --text-primary: #f0f4ff;
+  --text-secondary: rgba(200,210,255,0.55);
+  --text-muted: rgba(150,170,220,0.4);
+  
+  /* Theme presets */
+  --preset-warm-saffron: 36 100% 50%;
+  --preset-rose-gulab: 351 83% 62%;
+  --preset-marigold: 43 96% 56%;
+  --preset-coral: 16 100% 66%;
+  --preset-terracotta: 14 66% 55%;
+  --preset-mango: 38 100% 54%;
+  --preset-pomegranate: 348 83% 47%;
+  --preset-cinnamon: 28 62% 46%;
+  --preset-sunset: 25 95% 60%;
+  --preset-peach: 18 90% 70%;
+  --preset-chai: 30 40% 55%;
+  --preset-berry: 280 60% 55%;
+  --preset-plum: 300 40% 45%;
+  --preset-mint-tea: 160 50% 45%;
+}
+
+/* Dark mode tokens */
+.dark, [data-theme-mode="dark"] {
+  --app-bg: #080d1a;
+  --card-bg: rgba(255,255,255,0.05);
+}
+
+/* ─── BASE STYLES ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-family: var(--font);
+  font-size: 16px;                /* explicit root — 1rem = 16px everywhere */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%; /* prevent iOS auto-zoom on inputs */
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #0b0e1a;
+  overflow: hidden;
+  touch-action: manipulation;
+  font-size: 0.9375rem;           /* 15px — comfortable reading baseline */
+  line-height: 1.5;
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
+.dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+
+/* ─── INPUTS ─────────────────────────────────────────────── */
+input, select, textarea {
+  font-family: var(--font);
+}
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.5;
+}
+
+/* ─── THEME PRESET MAPPING ───────────────────────────────── */
+[data-theme="warm-saffron"]   { --primary: var(--preset-warm-saffron); }
+[data-theme="rose-gulab"]     { --primary: var(--preset-rose-gulab); }
+[data-theme="marigold"]       { --primary: var(--preset-marigold); }
+[data-theme="coral"]          { --primary: var(--preset-coral); }
+[data-theme="terracotta"]     { --primary: var(--preset-terracotta); }
+[data-theme="mango"]          { --primary: var(--preset-mango); }
+[data-theme="pomegranate"]    { --primary: var(--preset-pomegranate); }
+[data-theme="cinnamon"]       { --primary: var(--preset-cinnamon); }
+[data-theme="sunset"]         { --primary: var(--preset-sunset); }
+[data-theme="peach"]          { --primary: var(--preset-peach); }
+[data-theme="chai"]           { --primary: var(--preset-chai); }
+[data-theme="berry"]          { --primary: var(--preset-berry); }
+[data-theme="plum"]           { --primary: var(--preset-plum); }
+[data-theme="mint-tea"]       { --primary: var(--preset-mint-tea); }
+
+/* ─── UTILITY CLASSES ────────────────────────────────────── */
+.text-primary  { color: hsl(var(--primary)); }
+.bg-primary    { background-color: hsl(var(--primary)); }
+.border-primary { border-color: hsl(var(--primary)); }
+.ring-primary  { --tw-ring-color: hsl(var(--primary)); }
+
+/* Safe area spacing */
+.pt-safe  { padding-top: env(safe-area-inset-top, 0px); }
+.pb-safe  { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.safe-area-pb { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px); }
+.safe-area-top { padding-top: env(safe-area-inset-top, 0px); }
+
+/* Glass morphism utility */
+.glass {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.11);
+}
+.glass-card {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.11);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.glass-card-light {
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(255,255,255,0.8);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+/* Bento card - the core card type */
+.bento-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.bento-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  border-radius: 22px 22px 0 0;
+  pointer-events: none;
+}
+
+/* Aurora glow layers */
+.aurora-bg {
+  position: relative;
+  overflow: hidden;
+}
+.aurora-bg::before {
+  content: '';
+  position: absolute;
+  top: -40%; left: -20%;
+  width: 80%; height: 160%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(139,92,246,0.45) 0%, transparent 65%);
+  pointer-events: none;
+}
+.aurora-bg::after {
+  content: '';
+  position: absolute;
+  top: -20%; right: -20%;
+  width: 70%; height: 140%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(59,130,246,0.35) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ── Bento Glass Dark utilities ─────────────────────────────── */
+.glass-bento {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+.glass-icon-btn {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: rgba(203,213,225,0.7);
+}
+.glass-icon-btn:hover {
+  background: rgba(255,255,255,0.12);
+}
+/* ── AUTO-FIT AMOUNTS ── */
+.fit-amount {
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.fit-amount-lg {
+  font-size: clamp(14px, 4.5vw, 24px) !important;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  display: block;
+}
+.fit-amount-xl {
+  font-size: clamp(18px, 5.5vw, 32px) !important;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  display: block;
+}
+
+/* ── PREVENT TEXT SELECTION ── */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+input, textarea, [contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.dark-input {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  color: rgba(240,244,255,0.88) !important;
+}
+.dark-input::placeholder {
+  color: rgba(148,163,184,0.4) !important;
+}
+.dark-input:focus {
+  border-color: rgba(139,92,246,0.4) !important;
+  outline: none;
+}
+
+
+/* ─── MICRO ANIMATIONS ───────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.animate-fadeIn  { animation: fadeIn  0.25s ease both; }
+.animate-slideUp { animation: slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1) both; }
+.animate-scaleIn { animation: scaleIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+/* ─── SKELETON LOADER ────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.06) 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.5s linear infinite;
+  border-radius: 8px;
+}
+.dark .skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.05) 75%);
+  background-size: 200% auto;
+}
+
+/* ─── MODAL OVERLAY ──────────────────────────────────────── */
+.modal-overlay {
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ─── PRINT STYLES ───────────────────────────────────────── */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; }
+}
+
+/* ─── PULL-TO-REFRESH ────────────────────────────────────── */
+.ptr-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  color: hsl(var(--primary));
+}
+
+/* ─── HAPTIC PRESS FEEDBACK ──────────────────────────────── */
+button:active, [role="button"]:active {
+  transform: scale(0.97);
+}
+
+/* ─── DARK MODE BACKGROUNDS ──────────────────────────────── */
+.dark body { background: #080d1a; }
+.dark .bg-white { background: rgba(255,255,255,0.06) !important; }
+.dark .bg-slate-50 { background: rgba(255,255,255,0.03) !important; }
+.dark .border-slate-100 { border-color: rgba(255,255,255,0.07) !important; }
+.dark .shadow-sm { box-shadow: 0 1px 8px rgba(0,0,0,0.4) !important; }
+.dark .text-slate-800 { color: #e2e8f0 !important; }
+.dark .text-slate-700 { color: #cbd5e1 !important; }
+.dark .text-slate-600 { color: #94a3b8 !important; }
+.dark .text-slate-500 { color: #64748b !important; }
+
+/* ─── GLOBAL BENTO GLASS DARK FOUNDATION ────────────────── */
+/* Force all elements to render on dark canvas regardless of class */
+body, html, #root {
+  background: #0b0e1a !important;
+  color: rgba(240,244,255,0.92);
+}
+
+/* All bare elements inherit dark text */
+h1, h2, h3, h4, h5, h6, p, span, div, label, li {
+  color: inherit;
+}
+
+/* Input fields: dark glass by default */
+input, select, textarea {
+  background: rgba(255,255,255,0.07) !important;
+  color: rgba(240,244,255,0.9) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: rgba(150,170,220,0.4) !important;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.4);
+}
+
+/* Dividers */
+hr { border-color: rgba(255,255,255,0.08) !important; }
+
+/* Badge/tag elements */
+.badge, [class*="badge"] {
+  color: inherit;
+}
+
+/* All modal overlays use dark glass surface */
+[class*="modal"] > div, [class*="dialog"] > div {
+  background: rgba(8,10,22,0.96) !important;
+}
+
+/* Datalist dropdown */
+datalist { background: #0f1426; }
+
+/* Generic white containers that missed the sed pass */
+.bg-white { background: rgba(255,255,255,0.06) !important; }
+.bg-slate-50 { background: rgba(255,255,255,0.03) !important; }
+.bg-slate-100 { background: rgba(255,255,255,0.05) !important; }
+.bg-slate-200 { background: rgba(255,255,255,0.08) !important; }
+.bg-slate-900 { background: rgba(15,20,40,0.95) !important; }
+.bg-slate-950 { background: rgba(8,10,20,0.98) !important; }
+
+/* Borders */
+.border-slate-200, .border-slate-100 { border-color: rgba(255,255,255,0.1) !important; }
+.border-slate-700, .border-slate-800 { border-color: rgba(255,255,255,0.12) !important; }
+
+/* Text palette */
+.text-slate-900 { color: rgba(240,244,255,0.95) !important; }
+.text-slate-800 { color: rgba(220,228,255,0.88) !important; }
+.text-slate-700 { color: rgba(203,213,255,0.75) !important; }
+.text-slate-600 { color: rgba(148,163,220,0.65) !important; }
+.text-slate-500 { color: rgba(120,140,200,0.55) !important; }
+.text-slate-400 { color: rgba(100,120,180,0.5) !important; }
+.text-slate-300 { color: rgba(80,100,160,0.4) !important; }
+
+/* Remove white shadows on dark */
+.shadow-sm { box-shadow: 0 1px 8px rgba(0,0,0,0.3) !important; }
+.shadow-md { box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important; }
+.shadow-lg { box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important; }
+.shadow-xl { box-shadow: 0 12px 40px rgba(0,0,0,0.6) !important; }
+.shadow-2xl { box-shadow: 0 24px 60px rgba(0,0,0,0.7) !important; }
+
+/* ─── BENTO GLASS SCROLLBAR ──────────────────────────────── */
+::-webkit-scrollbar { width: 2px; height: 2px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+
+/* ═══════════════════════════════════════════════
+   BENTO GLASS DARK — GLOBAL OVERRIDES
+   Catch-all for any remaining light elements
+═══════════════════════════════════════════════ */
+
+/* Force dark backgrounds on all body/root */
+body, #root, .app-root {
+  background: #0b0e1a !important;
+  color: rgba(240,244,255,0.93);
+}
+
+/* ─── NO TEXT SELECTION ANYWHERE ─────────────────────────── */
+* {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+/* Allow selection only in actual input fields */
+input, textarea {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+}
+
+/* ─── FIT-AMOUNT: auto-shrinking currency text ─────────────
+   Use class="fit-amount" on any amount display element.
+   Also fit-amount-lg, fit-amount-xl for bigger sizes.
+─────────────────────────────────────────────────────────── */
+.fit-amount {
+  font-size: clamp(0.65rem, 3.5vw, 0.875rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+  line-height: 1.2;
+}
+.fit-amount-lg {
+  font-size: clamp(0.75rem, 4vw, 1.125rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+  line-height: 1.2;
+}
+.fit-amount-xl {
+  font-size: clamp(1rem, 6vw, 1.875rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+  line-height: 1.1;
+}
+.fit-amount-2xl {
+  font-size: clamp(1.25rem, 8vw, 2.5rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+  line-height: 1;
+}
+
+/* ─── SCROLLABLE PAGE LAYOUT ──────────────────────────────
+   Any view root that has h-full should allow scroll in content
+─────────────────────────────────────────────────────────── */
+.view-scroll-root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0b0e1a;
+  overflow: hidden;
+}
+.view-scroll-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Input/select/textarea — dark glass */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+select, textarea {
+  background: rgba(255,255,255,0.05) !important;
+  color: rgba(226,232,240,0.88) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: rgba(148,163,184,0.4) !important;
+}
+
+/* Focus rings — violet */
+input:focus, select:focus, textarea:focus, button:focus-visible {
+  outline-color: rgba(139,92,246,0.5) !important;
+  box-shadow: 0 0 0 2px rgba(139,92,246,0.25) !important;
+}
+
+/* Date inputs calendar icon — force light */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.4);
+}
+
+/* Select dropdown arrow */
+select option {
+  background: #0f1524 !important;
+  color: rgba(226,232,240,0.9) !important;
+}
+
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+*::-webkit-scrollbar { width: 3px; height: 3px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 99px; }
+
+/* Tables */
+table { color: rgba(203,213,225,0.8); }
+th { color: rgba(148,163,184,0.5) !important; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+/* Links */
+a { color: #a78bfa; }
+a:hover { color: #c4b5fd; }
+
+/* hr dividers */
+hr { border-color: rgba(255,255,255,0.07); }
+
+/* Glass icon buttons */
+.glass-icon-btn {
+  background: rgba(255,255,255,0.07) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  color: rgba(203,213,225,0.7) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   ACCESSIBILITY — MINIMUM TEXT SIZE FLOOR
+   Ensures all text stays readable on mobile for all users.
+   Override Tailwind arbitrary pixel classes that go below
+   the minimum comfortable reading size (~12px / 0.75rem).
+   These rules run last so they always win.
+═══════════════════════════════════════════════════════════ */
+
+/* ── Inputs / forms — never smaller than 15px to avoid iOS auto-zoom ── */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]):not([type="color"]):not([type="file"]),
+select,
+textarea {
+  font-size: 0.9375rem !important; /* 15px — iOS won't zoom at 16px+ */
+  line-height: 1.5 !important;
+  min-height: 2.75rem !important;  /* 44px — Apple HIG touch target */
+}
+
+/* ── Labels — set readable baseline without overriding larger deliberate sizes ── */
+label {
+  font-size: 0.8125rem;            /* 13px baseline — no !important so larger classes still win */
+  line-height: 1.4;
+}
+
+/* ── Bump all Tailwind arbitrary pixel classes that are dangerously small ──
+   Tailwind generates exact class names like .text-\[8px\] — we override them. */
+.text-\[8px\]  { font-size: 0.6875rem !important; } /* → 11px */
+.text-\[9px\]  { font-size: 0.6875rem !important; } /* → 11px */
+.text-\[10px\] { font-size: 0.75rem   !important; } /* → 12px */
+.text-\[11px\] { font-size: 0.8125rem !important; } /* → 13px */
+
+/* ── text-xs (12px in Tailwind) — lift to 13px ── */
+.text-xs {
+  font-size: 0.8125rem !important; /* 13px */
+  line-height: 1.4 !important;
+}
+
+/* ── text-sm (14px) — keep but ensure line-height is comfortable ── */
+.text-sm {
+  font-size: 0.875rem !important;  /* 14px */
+  line-height: 1.5 !important;
+}
+
+/* ── Button text — never too small ── */
+button {
+  font-size: 0.875rem;             /* 14px minimum */
+  line-height: 1.4;
+}
+
+/* ── fit-amount utilities — raise clamp minimums ── */
+.fit-amount {
+  font-size: clamp(0.8125rem, 3.5vw, 1rem) !important;  /* min 13px */
+}
+.fit-amount-lg {
+  font-size: clamp(0.875rem, 4vw, 1.25rem) !important;  /* min 14px */
+}
+.fit-amount-xl {
+  font-size: clamp(1.0625rem, 6vw, 1.875rem) !important; /* min 17px */
+}
+.fit-amount-2xl {
+  font-size: clamp(1.25rem, 8vw, 2.5rem) !important;     /* min 20px */
+}
+
+/* ── Navigation / tab labels ── */
+nav span, nav p, [role="tablist"] span, [role="tablist"] p {
+  font-size: 0.6875rem !important; /* 11px — still compact but legible */
+  line-height: 1.2 !important;
+}
+
+/* ── Badges / pills / tags ── */
+[class*="rounded-full"] span,
+[class*="rounded-lg"] span {
+  line-height: 1.3;
+}
+
+/* ── Prevent any element going below 11px ──
+   This is the absolute floor — catches anything we missed. */
+* {
+  min-font-size: 11px; /* CSS property not yet universal but harmless */
+}
+

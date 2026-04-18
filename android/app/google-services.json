@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "935080418890",
+    "project_id": "shopkeeper-1a3fc",
+    "storage_bucket": "shopkeeper-1a3fc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935080418890:android:8678f321bd6fc813eb10b3",
+        "android_client_info": {
+          "package_name": "com.shopkeeper.Webledger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935080418890-q7jc1djurhspj5qb1etvbt8038qrbn5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shopkeeper.Webledger",
+            "certificate_hash": "470ebdb260e6556f8f0dc902d943c1da81fb6455"
+          }
+        },
+        {
+          "client_id": "935080418890-4hmkt5g6sn0ar8d1lgcj96mto0hlm5a6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlIT_8O1-Q0vj-Y6jjuML7WWNcdK8yBUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935080418890-4hmkt5g6sn0ar8d1lgcj96mto0hlm5a6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935080418890:android:d14fea96072e3707eb10b3",
+        "android_client_info": {
+          "package_name": "com.shopkeeper.ledger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935080418890-4hmkt5g6sn0ar8d1lgcj96mto0hlm5a6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlIT_8O1-Q0vj-Y6jjuML7WWNcdK8yBUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935080418890-4hmkt5g6sn0ar8d1lgcj96mto0hlm5a6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
